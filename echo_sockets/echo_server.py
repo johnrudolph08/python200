@@ -5,8 +5,8 @@ import sys
 def server(log_buffer=sys.stderr):
     # set an address for our server
     address = ('127.0.0.1', 10000)
-
-    # initialize a server socket
+    # TODO: Replace the following line with your code which will instantiate
+    #       a TCP socket with IPv4 Addressing, call the socket you make 'sock'
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     #use SO_REUSEADDR flag so local socket can be reused in TIME_WAIT state
@@ -14,8 +14,9 @@ def server(log_buffer=sys.stderr):
 
     # log that we are building a server
     print("making a server on {0}:{1}".format(*address), file=log_buffer)
-
-    #bind your new sock 'sock' to the address above and begin to listen
+    
+    # TODO: bind your new sock 'sock' to the address above and begin to listen
+    #       for incoming connections
     sock.bind(address)
     sock.listen(1)
 
@@ -25,7 +26,11 @@ def server(log_buffer=sys.stderr):
         while True:
             print('waiting for a connection', file=log_buffer)
 
-            # Make a new socket when a client connects and get
+            # TODO: make a new socket when a client connects, call it 'conn',
+            #       at the same time you should be able to get the address of
+            #       the client so we can report it below.  Replace the
+            #       following line with your code. It is only here to prevent
+            #       syntax errors
             conn, addr = sock.accept()
 
             try:

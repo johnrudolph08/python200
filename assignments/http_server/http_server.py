@@ -41,14 +41,17 @@ def parse_request(request):
 
 def resolve_uri(uri):
     """Returns the contents and mimetype of file requested if file or dir exists"""
-    home = '/home/john/python_cert/PyWeb-02/homework/webroot'
+    #requested files should be in "webroot" subdir - need to update if this changes
+    home = os.path.dirname(os.path.realpath(sys.argv[0])) + "/webroot"
     file_path = home + uri
     try:
+        #if file is requested then read and return contents of file
         if os.path.isfile(file_path) is True:
                 file = open(file_path, 'rb')
                 content = file.read()
                 file.close()
                 mime_type = mimetypes.guess_type(uri)[0]
+        #if directory is requested then list files in directory
         elif os.path.isdir(file_path) is True:
                 content = ('\n'.join(os.listdir(file_path))).encode('utf8')
                 mime_type = 'text/plain'

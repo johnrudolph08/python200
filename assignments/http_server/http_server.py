@@ -44,20 +44,19 @@ def resolve_uri(uri):
     #requested files should be in "webroot" subdir - need to update if this changes
     home = os.path.dirname(os.path.realpath(sys.argv[0])) + "/webroot"
     file_path = home + uri
-    try:
-        #if file is requested then read and return contents of file
-        if os.path.isfile(file_path) is True:
-                file = open(file_path, 'rb')
-                content = file.read()
-                file.close()
-                mime_type = mimetypes.guess_type(uri)[0]
-        #if directory is requested then list files in directory
-        elif os.path.isdir(file_path) is True:
-                content = ('\n'.join(os.listdir(file_path))).encode('utf8')
-                mime_type = 'text/plain'
-        return (content, mime_type.encode('utf8'))
-    except IOError:
-        raise
+    #if file is requested then read and return contents of file
+    if os.path.isfile(file_path) is True:
+            file = open(file_path, 'rb')
+            content = file.read()
+            file.close()
+            mime_type = mimetypes.guess_type(uri)[0]
+    #if directory is requested then list files in directory
+    elif os.path.isdir(file_path) is True:
+            content = ('\n'.join(os.listdir(file_path))).encode('utf8')
+            mime_type = 'text/plain'
+    else: raise NameError
+    
+    return (content, mime_type.encode('utf8'))
 
 def server(log_buffer=sys.stderr):
     address = ('127.0.0.1', 10000)
